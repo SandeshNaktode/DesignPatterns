@@ -1,6 +1,4 @@
-import CommandDesignPattern.AirConditioner;
-import CommandDesignPattern.MyRemoteController;
-import CommandDesignPattern.TurnACOnCommand;
+package CommandDesignPattern;
 
 public class Main {
     public static void main(String[] args) {
