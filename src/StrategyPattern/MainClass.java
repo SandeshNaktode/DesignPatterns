@@ -3,6 +3,7 @@ package StrategyPattern;
 public class MainClass {
 
     public  static void main(String args []){
+        System.out.println("Strategy Design Pattern");
         Vehicle vehicle = new GoodsVehicle();
         vehicle.drive();
 

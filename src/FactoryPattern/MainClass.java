@@ -3,6 +3,7 @@ package FactoryPattern;
 public class MainClass {
 
     public  static void main(String args []){
+        System.out.println("Factory Design Pattern");
         ShapeFactory shapeFactory = new ShapeFactory();
 
         Shape shapeObj = shapeFactory.getShape(ShapEnum.CIRCLE);

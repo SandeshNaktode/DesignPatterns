@@ -49,6 +49,7 @@ class PaymentContextStrategy {
 // Step 4: Client code
 public class MainPaymentStrategy {
     public static void main(String[] args) {
+        System.out.println("PaymentStrategy Design Pattern");
         // Set strategy to CreditCardPayment
         PaymentContextStrategy paymentContext = new PaymentContextStrategy(new CreditCardPayment());
         paymentContext.pay(100); // Output: Paid 100 using Credit Card.

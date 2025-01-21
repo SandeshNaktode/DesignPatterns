@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 public class Main {
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
+        System.out.println("SingleTon Design Pattern");
         //SingleTon.SingleTon s1 = SingleTon.SingleTon.INSTANCE;
         SingleTon s1 = SingleTon.getSingleTon();
         s1.test();

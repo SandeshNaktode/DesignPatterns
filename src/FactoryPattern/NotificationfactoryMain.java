@@ -38,6 +38,7 @@ class NotificationFactory {
 // Step 4: Client code
 public class NotificationfactoryMain {
     public static void main(String[] args) {
+        System.out.println("NotificationFacory Design Pattern");
         Notification notification = NotificationFactory.createNotification("email");
         notification.notifyUser(); // Output: Sending an Email Notification
     }
