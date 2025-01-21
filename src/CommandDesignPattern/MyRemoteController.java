@@ -1,3 +1,5 @@
+package CommandDesignPattern;
+
 public class MyRemoteController {
 
     ICommand command;

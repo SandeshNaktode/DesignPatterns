@@ -1,3 +1,7 @@
+import CommandDesignPattern.AirConditioner;
+import CommandDesignPattern.MyRemoteController;
+import CommandDesignPattern.TurnACOnCommand;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
