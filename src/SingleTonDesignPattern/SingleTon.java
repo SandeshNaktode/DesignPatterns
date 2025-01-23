@@ -1,6 +1,5 @@
 package SingleTonDesignPattern;
 
-//public enum SingleTon.SingleTon {
 public class SingleTon{
 
     private static SingleTon singleTon;
