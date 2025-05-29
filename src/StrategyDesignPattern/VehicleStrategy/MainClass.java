@@ -1,4 +1,4 @@
-package StrategyDesignPattern;
+package StrategyDesignPattern.VehicleStrategy;
 
 public class MainClass {
 

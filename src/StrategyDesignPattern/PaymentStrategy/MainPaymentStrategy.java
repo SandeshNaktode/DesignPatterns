@@ -1,4 +1,4 @@
-package StrategyDesignPattern;
+package StrategyDesignPattern.PaymentStrategy;
 
 // Step 1: Define a common interface for payment strategy
 interface PaymentStrategy {

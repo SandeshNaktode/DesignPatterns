@@ -1,4 +1,4 @@
-package FactoryDesignPattern;
+package FactoryDesignPattern.NotificationFactory;
 // Step 1: Define a common interface
 interface Notification {
     void notifyUser();
