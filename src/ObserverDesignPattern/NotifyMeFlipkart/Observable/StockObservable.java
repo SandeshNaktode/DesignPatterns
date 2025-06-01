@@ -10,5 +10,5 @@ public interface StockObservable {
     void notifyObserevers();
 
     void setStock(int stockCount);
-    int getStocks();
+    int getStocksCount();
 }

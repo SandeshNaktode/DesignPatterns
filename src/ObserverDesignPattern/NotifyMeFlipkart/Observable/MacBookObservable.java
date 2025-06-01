@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MacBookObservable implements StockObservable{
     List<NotificationObserver> notificationObservers = new ArrayList<>();
-    int stockCount = 0;
+    int stockCount;
     @Override
     public void registerObserver(NotificationObserver displayObserver) {
         notificationObservers.add(displayObserver);
@@ -27,14 +27,15 @@ public class MacBookObservable implements StockObservable{
 
     @Override
     public void setStock(int stockCount) {
-        if(this.stockCount == 0){
+        int oldStock= this.stockCount;
+        this.stockCount = stockCount;
+        if(oldStock == 0){
             notifyObserevers();
         }
-        this.stockCount += stockCount;
     }
 
     @Override
-    public int getStocks() {
-        return stockCount;
+    public int getStocksCount() {
+        return this.stockCount;
     }
 }

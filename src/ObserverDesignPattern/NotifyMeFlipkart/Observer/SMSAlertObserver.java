@@ -13,6 +13,6 @@ public class SMSAlertObserver implements NotificationObserver {
 
     @Override
     public void update() {
-        System.out.println("SENDING MESSAGE to Mobile Number: "+mobileNum + "---" + stockObservable.getClass().getName());
+        System.out.println("SENDING MESSAGE to Mobile Number: "+mobileNum + "---" + stockObservable.getClass().getName() + "----StockCount: " +stockObservable.getStocksCount());
     }
 }

@@ -15,6 +15,6 @@ public class EmailAlertObserver implements NotificationObserver{
     @Override
     public void update() {
 
-        System.out.println("SENDING EMAIL to EMAILID: "+emailId +"---" + stockObservable.getClass().getName());
+        System.out.println("SENDING EMAIL to EMAILID: "+emailId +"---" + stockObservable.getClass().getName() + "----StockCount: " +stockObservable.getStocksCount());
     }
 }

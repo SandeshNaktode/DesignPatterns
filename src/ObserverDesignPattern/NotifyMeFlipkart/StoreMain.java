@@ -26,5 +26,11 @@ public class StoreMain {
 
         iphoneStockObserver.setStock(10);
         macStockObservable.setStock(8);
+
+        iphoneStockObserver.setStock(0);
+        macStockObservable.setStock(0);
+
+        iphoneStockObserver.setStock(20);
+        macStockObservable.setStock(18);
     }
 }
