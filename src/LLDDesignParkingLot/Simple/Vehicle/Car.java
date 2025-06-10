@@ -1,4 +1,4 @@
-package DesignParkingLot.Vehicle;
+package LLDDesignParkingLot.Simple.Vehicle;
 
 public class Car extends Vehicle {
     public Car(String licensePlate) {

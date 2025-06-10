@@ -1,11 +1,10 @@
-package DesignParkingLot;
+package LLDDesignParkingLot.Simple;
 
-import DesignParkingLot.Fees.FeeCalculator;
-import DesignParkingLot.Fees.HourlyFeeCalculator;
-import DesignParkingLot.Parking.ParkingFloor;
-import DesignParkingLot.Parking.ParkingSpot;
-import DesignParkingLot.Parking.Ticket;
-import DesignParkingLot.Vehicle.Vehicle;
+import LLDDesignParkingLot.Simple.Fees.FeeCalculator;
+import LLDDesignParkingLot.Simple.Parking.ParkingFloor;
+import LLDDesignParkingLot.Simple.Parking.ParkingSpot;
+import LLDDesignParkingLot.Simple.Parking.Ticket;
+import LLDDesignParkingLot.Simple.Vehicle.Vehicle;
 
 import java.time.LocalDateTime;
 import java.util.*;

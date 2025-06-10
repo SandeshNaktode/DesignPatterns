@@ -1,7 +1,6 @@
-package DesignParkingLot.Parking;
+package LLDDesignParkingLot.Simple.Parking;
 
-import DesignParkingLot.Parking.ParkingSpot;
-import DesignParkingLot.Vehicle.Vehicle;
+import LLDDesignParkingLot.Simple.Vehicle.Vehicle;
 
 import java.time.LocalDateTime;
 

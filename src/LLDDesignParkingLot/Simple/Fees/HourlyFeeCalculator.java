@@ -1,6 +1,6 @@
-package DesignParkingLot.Fees;
+package LLDDesignParkingLot.Simple.Fees;
 
-import DesignParkingLot.Vehicle.VehicleType;
+import LLDDesignParkingLot.Simple.Vehicle.VehicleType;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

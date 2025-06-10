@@ -1,6 +1,6 @@
-package DesignParkingLot.Parking;
+package LLDDesignParkingLot.Simple.Parking;
 
-import DesignParkingLot.Vehicle.Vehicle;
+import LLDDesignParkingLot.Simple.Vehicle.Vehicle;
 
 import java.util.List;
 import java.util.Optional;

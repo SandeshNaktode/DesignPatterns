@@ -1,4 +1,4 @@
-package DesignParkingLot.Vehicle;
+package LLDDesignParkingLot.Simple.Vehicle;
 
 public abstract class Vehicle {
     private final String licensePlate;

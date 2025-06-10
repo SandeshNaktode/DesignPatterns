@@ -1,7 +1,7 @@
-package DesignParkingLot.Parking;
+package LLDDesignParkingLot.Simple.Parking;
 
-import DesignParkingLot.Vehicle.Vehicle;
-import DesignParkingLot.Vehicle.VehicleType;
+import LLDDesignParkingLot.Simple.Vehicle.Vehicle;
+import LLDDesignParkingLot.Simple.Vehicle.VehicleType;
 
 public class ParkingSpot {
     private final String id;
