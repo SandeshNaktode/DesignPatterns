@@ -1,0 +1,68 @@
+@startuml
+
+' Interfaces
+interface StockObservable {
+    +registerObserver(observer: NotificationObserver): void
+    +removeObserever(observer: NotificationObserver): void
+    +notifyObserevers(): void
+    +setStock(stockCount: int): void
+    +getStocksCount(): int
+}
+
+interface NotificationObserver {
+    +update(): void
+}
+
+' Concrete Observables
+class IphoneObservable {
+    -notificationObservers: List<NotificationObserver>
+    -stockCount: int
+    +registerObserver(observer: NotificationObserver): void
+    +removeObserever(observer: NotificationObserver): void
+    +notifyObserevers(): void
+    +setStock(stockCount: int): void
+    +getStocksCount(): int
+}
+
+class MacBookObservable {
+    -notificationObservers: List<NotificationObserver>
+    -stockCount: int
+    +registerObserver(observer: NotificationObserver): void
+    +removeObserever(observer: NotificationObserver): void
+    +notifyObserevers(): void
+    +setStock(stockCount: int): void
+    +getStocksCount(): int
+}
+
+' Concrete Observers
+class EmailAlertObserver {
+    -emailId: String
+    -stockObservable: StockObservable
+    +update(): void
+}
+
+class SMSAlertObserver {
+    -mobileNum: String
+    -stockObservable: StockObservable
+    +update(): void
+}
+
+' Main Driver
+class StoreMain {
+    +main(args: String[]): void
+}
+
+' Relationships
+IphoneObservable ..|> StockObservable
+MacBookObservable ..|> StockObservable
+
+EmailAlertObserver ..|> NotificationObserver
+SMSAlertObserver ..|> NotificationObserver
+
+EmailAlertObserver --> StockObservable
+SMSAlertObserver --> StockObservable
+
+StoreMain --> StockObservable
+StoreMain --> NotificationObserver
+
+@enduml

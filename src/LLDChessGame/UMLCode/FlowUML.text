@@ -1,0 +1,41 @@
+@startuml
+actor Player
+participant "ChessGame" as Game
+participant "Board" as Board
+participant "Cell" as Cell
+participant "Piece" as Piece
+participant "MoveValidator" as Validator
+
+== Game Initialization ==
+Player -> Game : startGame()
+Game -> Board : initialize()
+Board -> Cell : setupInitialPieces()
+Cell --> Board : pieces placed
+Board --> Game : board ready
+Game --> Player : Game started
+
+== Player Makes a Move ==
+Player -> Game : makeMove(fromPos, toPos)
+Game -> Board : getCell(fromPos)
+Board -> Cell : return fromCell
+Game -> fromCell : getPiece()
+fromCell --> Game : piece
+
+Game -> Board : getCell(toPos)
+Board -> Cell : return toCell
+
+== Validate Move ==
+Game -> Validator : isValidMove(piece, fromPos, toPos, board)
+Validator -> Piece : isValidMove(fromPos, toPos, board)
+Piece --> Validator : true/false
+Validator --> Game : result
+
+alt Valid Move
+    Game -> Board : movePiece(fromPos, toPos)
+    Board -> Cell : update source & destination cells
+    Game -> Game : switchTurn()
+    Game --> Player : move successful
+else Invalid Move
+    Game --> Player : invalid move
+end
+@enduml

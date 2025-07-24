@@ -1,0 +1,126 @@
+@startuml
+actor User
+
+User -> MainPizzaStore : main()
+
+== Margheritia Pizza Flow ==
+
+MainPizzaStore -> MargheritiaPizza : new()
+activate MargheritiaPizza
+deactivate MargheritiaPizza
+
+MainPizzaStore -> CheeseDecorator : new(MargheritiaPizza)
+activate CheeseDecorator
+deactivate CheeseDecorator
+
+MainPizzaStore -> MushroomDecorator : new(CheeseDecorator)
+activate MushroomDecorator
+deactivate MushroomDecorator
+
+MainPizzaStore -> OliveDecorator : new(MushroomDecorator)
+activate OliveDecorator
+deactivate OliveDecorator
+
+MainPizzaStore -> OliveDecorator : getDescription()
+activate OliveDecorator
+OliveDecorator -> MushroomDecorator : getDescription()
+MushroomDecorator -> CheeseDecorator : getDescription()
+CheeseDecorator -> MargheritiaPizza : getDescription()
+MargheritiaPizza --> CheeseDecorator : "Margheritia Pizza(100.00)"
+CheeseDecorator --> MushroomDecorator : "... + Extra Cheese(50.00)"
+MushroomDecorator --> OliveDecorator : "... + Mushroom Toppings(30.00)"
+OliveDecorator --> MainPizzaStore : "... + Olive Toppings(20.00)"
+deactivate OliveDecorator
+
+MainPizzaStore -> OliveDecorator : getCost()
+activate OliveDecorator
+OliveDecorator -> MushroomDecorator : getCost()
+MushroomDecorator -> CheeseDecorator : getCost()
+CheeseDecorator -> MargheritiaPizza : getCost()
+MargheritiaPizza --> CheeseDecorator : 100.00
+CheeseDecorator --> MushroomDecorator : 150.00
+MushroomDecorator --> OliveDecorator : 180.00
+OliveDecorator --> MainPizzaStore : 200.00
+deactivate OliveDecorator
+
+== Veg Delight Pizza Flow ==
+
+MainPizzaStore -> VegDelight : new()
+activate VegDelight
+deactivate VegDelight
+
+MainPizzaStore -> CheeseDecorator : new(VegDelight)
+activate CheeseDecorator
+deactivate CheeseDecorator
+
+MainPizzaStore -> MushroomDecorator : new(CheeseDecorator)
+activate MushroomDecorator
+deactivate MushroomDecorator
+
+MainPizzaStore -> OliveDecorator : new(MushroomDecorator)
+activate OliveDecorator
+deactivate OliveDecorator
+
+MainPizzaStore -> OliveDecorator : getDescription()
+activate OliveDecorator
+OliveDecorator -> MushroomDecorator : getDescription()
+MushroomDecorator -> CheeseDecorator : getDescription()
+CheeseDecorator -> VegDelight : getDescription()
+VegDelight --> CheeseDecorator : "Veg Delight Pizza(150.00)"
+CheeseDecorator --> MushroomDecorator : "... + Extra Cheese(50.00)"
+MushroomDecorator --> OliveDecorator : "... + Mushroom Toppings(30.00)"
+OliveDecorator --> MainPizzaStore : "... + Olive Toppings(20.00)"
+deactivate OliveDecorator
+
+MainPizzaStore -> OliveDecorator : getCost()
+activate OliveDecorator
+OliveDecorator -> MushroomDecorator : getCost()
+MushroomDecorator -> CheeseDecorator : getCost()
+CheeseDecorator -> VegDelight : getCost()
+VegDelight --> CheeseDecorator : 150.00
+CheeseDecorator --> MushroomDecorator : 200.00
+MushroomDecorator --> OliveDecorator : 230.00
+OliveDecorator --> MainPizzaStore : 250.00
+deactivate OliveDecorator
+
+== Farm House Pizza Flow ==
+
+MainPizzaStore -> FarmHouse : new()
+activate FarmHouse
+deactivate FarmHouse
+
+MainPizzaStore -> CheeseDecorator : new(FarmHouse)
+activate CheeseDecorator
+deactivate CheeseDecorator
+
+MainPizzaStore -> MushroomDecorator : new(CheeseDecorator)
+activate MushroomDecorator
+deactivate MushroomDecorator
+
+MainPizzaStore -> OliveDecorator : new(MushroomDecorator)
+activate OliveDecorator
+deactivate OliveDecorator
+
+MainPizzaStore -> OliveDecorator : getDescription()
+activate OliveDecorator
+OliveDecorator -> MushroomDecorator : getDescription()
+MushroomDecorator -> CheeseDecorator : getDescription()
+CheeseDecorator -> FarmHouse : getDescription()
+FarmHouse --> CheeseDecorator : "Farm House Pizza(200.00)"
+CheeseDecorator --> MushroomDecorator : "... + Extra Cheese(50.00)"
+MushroomDecorator --> OliveDecorator : "... + Mushroom Toppings(30.00)"
+OliveDecorator --> MainPizzaStore : "... + Olive Toppings(20.00)"
+deactivate OliveDecorator
+
+MainPizzaStore -> OliveDecorator : getCost()
+activate OliveDecorator
+OliveDecorator -> MushroomDecorator : getCost()
+MushroomDecorator -> CheeseDecorator : getCost()
+CheeseDecorator -> FarmHouse : getCost()
+FarmHouse --> CheeseDecorator : 200.00
+CheeseDecorator --> MushroomDecorator : 250.00
+MushroomDecorator --> OliveDecorator : 280.00
+OliveDecorator --> MainPizzaStore : 300.00
+deactivate OliveDecorator
+
+@enduml

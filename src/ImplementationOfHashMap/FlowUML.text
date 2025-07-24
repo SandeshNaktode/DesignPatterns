@@ -1,0 +1,39 @@
+@startuml
+actor User
+
+User -> Main : main()
+activate Main
+
+Main -> MyHashMap : new MyHashMap(17)
+activate MyHashMap
+MyHashMap -> MyHashMap : tableSizeFor(17)
+deactivate MyHashMap
+
+== Inserting Multiple Key-Value Pairs ==
+Main -> MyHashMap : put(1, "hi")
+MyHashMap -> Entry : new Entry(1, "hi")
+deactivate Entry
+
+Main -> MyHashMap : put(2, "my")
+Main -> MyHashMap : put(3, "name")
+Main -> MyHashMap : put(4, "is")
+Main -> MyHashMap : put(5, "Sandesh")
+Main -> MyHashMap : put(6, "how")
+Main -> MyHashMap : put(7, "are")
+Main -> MyHashMap : put(8, "you")
+MyHashMap -> Entry : new Entry(8, "you")
+deactivate Entry
+
+Main -> MyHashMap : put(9, "friends")
+Main -> MyHashMap : put(10, "?")
+
+== Getting a Value ==
+Main -> MyHashMap : get(8)
+activate MyHashMap
+MyHashMap --> Main : returns "you"
+deactivate MyHashMap
+
+Main -> System : println("you")
+
+deactivate Main
+@enduml

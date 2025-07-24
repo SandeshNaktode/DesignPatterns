@@ -1,0 +1,45 @@
+@startuml
+actor User
+
+participant "BookMyShowClient" as Client
+participant "MovieController" as MovieCtrl
+participant "TheatreController" as TheatreCtrl
+participant "Theatre"
+participant "Show"
+participant "Screen"
+participant "Seat"
+participant "Booking"
+participant "Payment"
+
+== Search and Select ==
+User -> Client : searchMovie("Inception", City.BANGALORE)
+Client -> MovieCtrl : getMovieByName("Inception")
+MovieCtrl --> Client : Movie
+
+User -> Client : selectMovie(Movie)
+
+Client -> TheatreCtrl : getAllShow(Movie, City.BANGALORE)
+TheatreCtrl --> Client : Map<Theatre, List<Show>>
+
+User -> Client : selectShow(Show)
+
+== Choose Seats ==
+Client -> Show : getAvailableSeats()
+Show -> Screen : getSeats()
+Screen -> Seat : checkAvailability()
+Seat --> Screen : availableSeats
+Screen --> Show : availableSeats
+Show --> Client : List<Seat>
+
+User -> Client : selectSeats(List<Seat>)
+
+== Booking and Payment ==
+Client -> Booking : createBooking(Show, List<Seat>)
+Booking -> Payment : makePayment(amount)
+Payment --> Booking : success/failure
+
+Booking --> Client : bookingConfirmed
+
+Client --> User : Booking Success Message
+
+@enduml

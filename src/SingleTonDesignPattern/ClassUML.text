@@ -1,0 +1,14 @@
+@startuml
+class SingleTon {
+    -singleTon: SingleTon
+    -SingleTon()
+    +getSingleTon(): SingleTon
+    +test(): void
+}
+
+class SingleTonMain {
+    +main(args: String[]): void
+}
+
+SingleTonMain --> SingleTon : uses
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+actor Client
+
+Client -> PaymentContextStrategy : create(with CreditCardPayment)
+Client -> PaymentContextStrategy : pay(100)
+PaymentContextStrategy -> CreditCardPayment : pay(100)
+
+Client -> PaymentContextStrategy : create(with PayPalPayment)
+Client -> PaymentContextStrategy : pay(200)
+PaymentContextStrategy -> PayPalPayment : pay(200)
+
+Client -> PaymentContextStrategy : create(with BankTransferPayment)
+Client -> PaymentContextStrategy : pay(300)
+PaymentContextStrategy -> BankTransferPayment : pay(300)
+@enduml

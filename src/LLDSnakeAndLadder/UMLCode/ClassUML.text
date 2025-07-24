@@ -1,0 +1,63 @@
+@startuml
+title Snake and Ladder - UML Class Diagram
+
+class MainGame {
+    + main(args: String[]): void
+}
+
+class Game {
+    - Board board
+    - Dice dice
+    - Deque<Player> playerDeque
+    - Player winner
+    + startGame(): void
+    - initializeGame(): void
+    - constructPlayers(): void
+    - findPlayerTurn(): Player
+    - jumpCheck(newPos: int): int
+}
+
+class Player {
+    - String id
+    - int currentPosition
+    - String playerName
+    + Player(id: String, pos: int, name: String)
+}
+
+class Board {
+    - Cell[][] cells
+    + Board(size: int, snakes: int, ladders: int)
+    + getCell(pos: int): Cell
+    - initializeCells(size: int): void
+    - addSnakeAndLadders(snakes: int, ladders: int): void
+}
+
+class Cell {
+    - Jump jump
+    + getJump(): Jump
+    + setJump(jump: Jump): void
+}
+
+class Jump {
+    - int start
+    - int end
+    + getStart(): int
+    + setStart(int): void
+    + getEnd(): int
+    + setEnd(int): void
+}
+
+class Dice {
+    - int diceCount
+    + Dice(diceCount: int)
+    + rollDice(): int
+}
+
+MainGame --> Game
+Game --> Board
+Game --> Dice
+Game --> Player
+Game --> Cell
+Cell --> Jump
+
+@enduml

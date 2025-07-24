@@ -1,0 +1,20 @@
+@startuml
+actor Client
+
+Client -> NotificationFactory : createNotification("email")
+activate NotificationFactory
+
+NotificationFactory -> EmailNotification : new EmailNotification()
+activate EmailNotification
+EmailNotification --> NotificationFactory : instance
+deactivate EmailNotification
+
+NotificationFactory --> Client : Notification
+deactivate NotificationFactory
+
+Client -> EmailNotification : notifyUser()
+activate EmailNotification
+EmailNotification --> Client : "Sending an Email Notification"
+deactivate EmailNotification
+
+@enduml

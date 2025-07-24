@@ -1,0 +1,36 @@
+@startuml
+' Interfaces
+interface ProtoType {
+    +clone(): ProtoType
+}
+
+' Classes
+class Student {
+    -name: String
+    -age: int
+    -rollNo: int
+    +Student(name: String, age: int, rollNo: int)
+    +clone(): ProtoType
+    +toString(): String
+}
+
+class Employee {
+    -empID: int
+    -empName: String
+    -empAge: int
+    -empDesignation: String
+    -empDepartment: String
+    +Employee(empID: int, empName: String, empAge: int, empDesignation: String, empDepartment: String)
+    +clone(): ProtoType
+    +toString(): String
+}
+
+class ProtoTypeMain {
+    +main(args: String[]): void
+}
+
+' Relationships
+ProtoType <|.. Student
+ProtoType <|.. Employee
+
+@enduml

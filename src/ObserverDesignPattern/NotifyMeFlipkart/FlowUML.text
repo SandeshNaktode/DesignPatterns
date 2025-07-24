@@ -1,0 +1,24 @@
+@startuml
+actor User
+participant StoreMain
+participant MacBookObservable
+participant IphoneObservable
+participant EmailAlertObserver
+participant SMSAlertObserver
+
+User -> StoreMain: main()
+
+StoreMain -> MacBookObservable: registerObserver(macObserver1)
+StoreMain -> MacBookObservable: registerObserver(macObserver2)
+
+StoreMain -> IphoneObservable: registerObserver(iphoneObserver1)
+StoreMain -> IphoneObservable: registerObserver(iphoneObserver2)
+
+StoreMain -> IphoneObservable: setStock(10)
+IphoneObservable -> EmailAlertObserver: update()
+IphoneObservable -> SMSAlertObserver: update()
+
+StoreMain -> MacBookObservable: setStock(8)
+MacBookObservable -> EmailAlertObserver: update()
+MacBookObservable -> SMSAlertObserver: update()
+@enduml

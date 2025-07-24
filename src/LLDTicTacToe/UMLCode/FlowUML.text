@@ -1,0 +1,34 @@
+@startuml
+title Sequence Diagram - Tic Tac Toe Game Flow
+
+actor User
+participant MainGameClass
+participant TicTacToeGame
+participant Board
+participant Player
+
+User -> MainGameClass: main()
+MainGameClass -> TicTacToeGame: new TicTacToeGame()
+TicTacToeGame -> TicTacToeGame: initializeGame()
+TicTacToeGame -> Board: new Board(size)
+TicTacToeGame -> Player: create players
+
+loop Until Game Ends
+    TicTacToeGame -> Player: get current player
+    TicTacToeGame -> Board: printBoard()
+    User -> TicTacToeGame: choose row, column
+    TicTacToeGame -> Board: addPiece(row, col, piece)
+    Board --> TicTacToeGame: success/failure
+
+    TicTacToeGame -> TicTacToeGame: isThereWinner(row, col, piece)
+    alt If winner
+        TicTacToeGame -> MainGameClass: return winner
+        break
+    else
+        TicTacToeGame -> Player: enqueue back
+    end
+end
+
+MainGameClass -> User: Display winner/tie
+
+@enduml

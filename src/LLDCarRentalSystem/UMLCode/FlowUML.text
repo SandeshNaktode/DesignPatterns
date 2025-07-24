@@ -1,0 +1,44 @@
+@startuml
+actor User
+
+participant "RentalMain" as Main
+participant "VehicleRentalSystem" as RentalSystem
+participant "Store"
+participant "VehicleInventoryManagement" as Inventory
+participant "Vehicle"
+participant "Reservation"
+participant "Bill"
+participant "Payment"
+
+== Search Store ==
+User -> Main : startRental()
+Main -> RentalSystem : getStore(location)
+RentalSystem --> Main : Store
+
+== Get Vehicles ==
+Main -> Store : getVehicles(VehicleType.CAR)
+Store -> Inventory : getVehicles()
+Inventory --> Store : List<Vehicle>
+Store --> Main : List<Vehicle>
+
+== Create Reservation ==
+Main -> Store : createReservation(vehicle, user)
+Store -> Reservation : createReserve(user, vehicle)
+Reservation --> Store : Reservation object
+Store --> Main : Reservation
+
+== Generate Bill ==
+Main -> Bill : new Bill(reservation)
+Bill -> Bill : computeBillAmount()
+Bill --> Main : Bill object
+
+== Payment ==
+Main -> Payment : payBill(bill)
+Payment --> Main : payment complete
+
+== Complete Trip ==
+Main -> Store : completeReservation(reservationId)
+Store -> Reservation : lookup reservation
+Store --> Main : reservation completed
+
+@enduml

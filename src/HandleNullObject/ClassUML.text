@@ -1,0 +1,36 @@
+@startuml
+
+' Interface
+interface Vehicle {
+    + getSeatingCapacity(): int
+    + getTankCapacity(): int
+}
+
+' Implementing Classes
+class Car implements Vehicle {
+    + getSeatingCapacity(): int
+    + getTankCapacity(): int
+}
+
+class NullVehicle implements Vehicle {
+    + getSeatingCapacity(): int
+    + getTankCapacity(): int
+}
+
+' Factory
+class VehicelFactory {
+    + getVehicleObject(type: String): Vehicle
+}
+
+' Main Class
+class MainNullable {
+    + main(String[]): void
+    - getVehicleDetails(vehicle: Vehicle): void
+}
+
+Vehicle <|.. Car
+Vehicle <|.. NullVehicle
+VehicelFactory ..> Vehicle : returns
+MainNullable ..> Vehicle : uses
+
+@enduml

@@ -1,0 +1,51 @@
+@startuml
+enum PermissionType {
+  READ
+  WRITE
+  DELETE
+  UPDATE
+  EXECUTE
+}
+
+enum UserType {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+  GUEST
+}
+
+class Permission {
+  - resource: String
+  - type: PermissionType
+  + getResource(): String
+  + getType(): PermissionType
+}
+
+class Role {
+  - roleId: String
+  - name: String
+  - permissions: Set<Permission>
+  + addPermission(p: Permission)
+  + getPermissions(): Set<Permission>
+}
+
+class User {
+  - userId: String
+  - name: String
+  - type: UserType
+  - roles: Set<Role>
+  + assignRole(r: Role)
+  + getRoles(): Set<Role>
+}
+
+class AccessControlService {
+  + checkAccess(user: User, resource: String, type: PermissionType): boolean
+}
+
+User --> Role : has >
+Role --> Permission : defines >
+AccessControlService --> User : validates >
+Permission --> PermissionType
+User --> UserType
+
+@enduml

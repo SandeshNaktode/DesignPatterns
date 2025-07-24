@@ -1,0 +1,111 @@
+@startuml
+
+'====== ENUMS ======
+enum City {
+  NAGPUR
+  BANGALORE
+  MUMBAI
+}
+
+enum SeatCategory {
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+'====== CLASSES ======
+class BookMyShowClient {
+  - MovieController movieController
+  - TheatreController theatreController
+  + main(String[]): void
+}
+
+class MovieController {
+  - Map<City, List<Movie>> cityVsMovies
+  - List<Movie> movieList
+  + addMovie(Movie, City): void
+  + getMovieByName(String): Movie
+  + getMoviesByCity(City): List<Movie>
+}
+
+class TheatreController {
+  - Map<City, List<Theatre>> cityVsTheatre
+  - List<Theatre> allTheatre
+  + addTheatre(Theatre, City): void
+  + getAllShow(Movie, City): Map<Theatre, List<Show>>
+}
+
+class Movie {
+  - int movieId
+  - String movieName
+  - String language
+  - int durationInMinutes
+}
+
+class Theatre {
+  - int theatreId
+  - String address
+  - City city
+  - List<Screen> screen
+  - List<Show> shows
+}
+
+class Screen {
+  - int screenId
+  - String name
+  - List<Seat> seats
+}
+
+class Seat {
+  - int seatId
+  - int row
+  - boolean isAvailable
+  - SeatCategory seatCategory
+}
+
+class Show {
+  - int showId
+  - Movie movie
+  - Screen screen
+  - int showStartTime
+  - List<Integer> bookedSeatIds
+}
+
+class Booking {
+  - Show show
+  - List<Seat> bookedSeats
+  - Payment payment
+}
+
+class Payment {
+  - int paymentId
+  + makePayment(double): boolean
+}
+
+'====== RELATIONSHIPS ======
+BookMyShowClient --> MovieController
+BookMyShowClient --> TheatreController
+
+MovieController --> Movie
+MovieController --> City
+
+TheatreController --> Theatre
+TheatreController --> City
+
+Theatre --> Screen
+Theatre --> Show
+Theatre --> City
+
+Show --> Movie
+Show --> Screen
+Show --> Integer
+
+Screen --> Seat
+
+Booking --> Show
+Booking --> Seat
+Booking --> Payment
+
+Seat --> SeatCategory
+
+@enduml

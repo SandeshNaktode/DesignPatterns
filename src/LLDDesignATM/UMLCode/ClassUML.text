@@ -1,0 +1,112 @@
+@startuml
+
+'===== Packages =====
+package LLDDesignATM {
+
+    class ATM {
+        - ATMState currentATMState
+        - int atmBalance
+        - int noOfTwoThousandNotes
+        - int noOfFiveHundredNotes
+        - int noOfOneHundredNotes
+        + getATMObject(): ATM
+        + setCurrentATMState(ATMState): void
+        + getCurrentATMState(): ATMState
+        + setAtmBalance(int, int, int, int): void
+        + deductATMBalance(int): void
+        + deductTwoThousandNotes(int): void
+        + deductFiveHundredNotes(int): void
+        + deductOneHundredNotes(int): void
+        + printCurrentATMStatus(): void
+    }
+
+    abstract class ATMState {
+        + insertCard(ATM, Card): void
+        + authenticatePin(ATM, Card, int): void
+        + selectOperation(ATM, Card, TransactionType): void
+        + cashWithdrawal(ATM, Card, int): void
+        + displayBalance(ATM, Card): void
+        + returnCard(): void
+        + exit(ATM): void
+    }
+
+    class IdleState
+    class HasCardState
+    class SelectOperationState
+    class CheckBalanceState
+    class CashWithdrawalState
+
+    ATMState <|-- IdleState
+    ATMState <|-- HasCardState
+    ATMState <|-- SelectOperationState
+    ATMState <|-- CheckBalanceState
+    ATMState <|-- CashWithdrawalState
+
+    class ATMRoom {
+        - ATM atm
+        - User user
+        + main(String[]): void
+        + initialize(): void
+    }
+
+    class User {
+        - Card card
+        - UserBankAccount bankAccount
+        + getCard(): Card
+        + setCard(Card): void
+    }
+
+    class Card {
+        - int cardNumber
+        - int cvv
+        - int expiryDate
+        - int holderName
+        - static int PIN_NUMBER
+        - UserBankAccount bankAccount
+        + isCorrectPINEntered(int): boolean
+        + getBankBalance(): int
+        + deductBankBalance(int): void
+        + setBankAccount(UserBankAccount): void
+    }
+
+    class UserBankAccount {
+        - int balance
+        + withdrawalBalance(int): void
+    }
+
+    enum TransactionType {
+        CASH_WITHDRAWAL
+        BALANCE_CHECK
+        + showAllTransactionTypes(): void
+    }
+}
+
+package LLDDesignATM.CashWithdraw {
+
+    class CashWithdrawProcessor {
+        - CashWithdrawProcessor nextCashWithdrawalProcessor
+        + withdraw(ATM, int): void
+    }
+
+    class TwoThousandWithdrawProcessor
+    class FiveHundredWithdrawProcessor
+    class OneHundredWithdrawProcessor
+
+    CashWithdrawProcessor <|-- TwoThousandWithdrawProcessor
+    CashWithdrawProcessor <|-- FiveHundredWithdrawProcessor
+    CashWithdrawProcessor <|-- OneHundredWithdrawProcessor
+}
+
+'===== Associations =====
+ATM --> ATMState : currentATMState
+ATMRoom --> ATM : atm
+ATMRoom --> User : user
+User --> Card : card
+User --> UserBankAccount : bankAccount
+Card --> UserBankAccount : bankAccount
+CashWithdrawalState --> CashWithdrawProcessor : uses
+ATMState --> ATM : context
+ATMState --> Card : uses
+ATMState --> TransactionType : uses
+
+@enduml

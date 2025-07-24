@@ -1,0 +1,94 @@
+@startuml
+left to right direction
+
+enum Color {
+  WHITE
+  BLACK
+}
+
+enum GameStatus {
+  ACTIVE
+  WHITE_WIN
+  BLACK_WIN
+  STALEMATE
+}
+
+class ChessGame {
+  - board: Board
+  - players: List<Player>
+  - currentTurn: Player
+  - status: GameStatus
+  - moveHistory: List<Move>
+  + startGame(): void
+  + makeMove(move: Move): boolean
+  + isGameOver(): boolean
+}
+
+class Board {
+  - grid: Cell[8][8]
+  + getCell(x: int, y: int): Cell
+  + resetBoard(): void
+}
+
+class Cell {
+  - row: int
+  - col: int
+  - piece: Piece
+  + isEmpty(): boolean
+  + getPiece(): Piece
+  + setPiece(p: Piece): void
+}
+
+abstract class Piece {
+  - color: Color
+  - killed: boolean
+  + canMove(board: Board, start: Cell, end: Cell): boolean
+  + getColor(): Color
+}
+
+class King
+class Queen
+class Rook
+class Bishop
+class Knight
+class Pawn
+
+Piece <|-- King
+Piece <|-- Queen
+Piece <|-- Rook
+Piece <|-- Bishop
+Piece <|-- Knight
+Piece <|-- Pawn
+
+class Player {
+  - name: String
+  - color: Color
+  + getColor(): Color
+}
+
+class Move {
+  - player: Player
+  - start: Cell
+  - end: Cell
+  - pieceMoved: Piece
+  - pieceKilled: Piece
+  + isCastlingMove(): boolean
+}
+
+class MoveValidator {
+  + isValidMove(move: Move, board: Board): boolean
+}
+
+ChessGame --> Board
+ChessGame --> Player : has >
+ChessGame --> Move : uses >
+Board --> Cell : has >
+Cell --> Piece : contains >
+Player --> Color
+Piece --> Color
+Move --> Player
+Move --> Cell
+Move --> Piece : moved/killed >
+ChessGame --> MoveValidator : uses >
+
+@enduml

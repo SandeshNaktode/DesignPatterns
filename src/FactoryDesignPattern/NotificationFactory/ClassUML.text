@@ -1,0 +1,34 @@
+@startuml
+interface Notification {
+    +notifyUser(): void
+}
+
+class EmailNotification {
+    +notifyUser(): void
+}
+
+class SMSNotification {
+    +notifyUser(): void
+}
+
+class PushNotification {
+    +notifyUser(): void
+}
+
+class NotificationFactory {
+    +createNotification(type: String): Notification
+}
+
+class NotificationfactoryMain {
+    +main(args: String[]): void
+}
+
+' Relationships
+Notification <|.. EmailNotification
+Notification <|.. SMSNotification
+Notification <|.. PushNotification
+
+NotificationFactory --> Notification
+NotificationfactoryMain --> NotificationFactory
+
+@enduml

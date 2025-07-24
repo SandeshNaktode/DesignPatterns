@@ -1,0 +1,57 @@
+@startuml
+' Interfaces
+interface Vehicle {
+    +getVehicleDetails(): void
+}
+
+interface VehicleFactory {
+    +createVehicle(brand: String): Vehicle
+}
+
+' Factory Producer
+class FactoryProducer {
+    +getVehicleFactory(type: String): VehicleFactory
+}
+
+' Concrete Factories
+class LuxuryVehicleFactory {
+    +createVehicle(brand: String): Vehicle
+}
+
+class OrdinaryVehicleFactory {
+    +createVehicle(brand: String): Vehicle
+}
+
+' Concrete Products - Luxury
+class BMW {
+    +getVehicleDetails(): void
+}
+
+class Mercedes {
+    +getVehicleDetails(): void
+}
+
+' Concrete Products - Ordinary
+class Hyundai {
+    +getVehicleDetails(): void
+}
+
+class Suzuki {
+    +getVehicleDetails(): void
+}
+
+' Relationships
+LuxuryVehicleFactory ..|> VehicleFactory
+OrdinaryVehicleFactory ..|> VehicleFactory
+
+BMW ..|> Vehicle
+Mercedes ..|> Vehicle
+Hyundai ..|> Vehicle
+Suzuki ..|> Vehicle
+
+FactoryProducer --> VehicleFactory
+LuxuryVehicleFactory --> BMW
+LuxuryVehicleFactory --> Mercedes
+OrdinaryVehicleFactory --> Hyundai
+OrdinaryVehicleFactory --> Suzuki
+@enduml

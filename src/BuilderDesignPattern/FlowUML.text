@@ -1,0 +1,93 @@
+@startuml
+actor Client
+
+== Engineering Student Flow ==
+
+Client -> StudentClientMain : main()
+activate StudentClientMain
+
+StudentClientMain -> EngineeringStudentBuilder : new()
+activate EngineeringStudentBuilder
+EngineeringStudentBuilder --> StudentClientMain : builder instance
+deactivate EngineeringStudentBuilder
+
+StudentClientMain -> CollegeDirector : new(EngineeringStudentBuilder)
+activate CollegeDirector
+CollegeDirector --> StudentClientMain : director instance
+deactivate CollegeDirector
+
+StudentClientMain -> CollegeDirector : createStudent()
+activate CollegeDirector
+
+CollegeDirector -> EngineeringStudentBuilder : setId(2)
+EngineeringStudentBuilder --> CollegeDirector
+
+CollegeDirector -> EngineeringStudentBuilder : setName("Sandesh")
+EngineeringStudentBuilder --> CollegeDirector
+
+CollegeDirector -> EngineeringStudentBuilder : setEmail("abcd@snbhc.com")
+EngineeringStudentBuilder --> CollegeDirector
+
+CollegeDirector -> EngineeringStudentBuilder : setAge(25)
+EngineeringStudentBuilder --> CollegeDirector
+
+CollegeDirector -> EngineeringStudentBuilder : setSubjects()
+activate EngineeringStudentBuilder
+note right
+sets subjects:
+["CP", "DSA", "JAVA", "System Design"]
+end note
+EngineeringStudentBuilder --> CollegeDirector
+deactivate EngineeringStudentBuilder
+
+CollegeDirector -> EngineeringStudentBuilder : build()
+activate Student
+Student --> CollegeDirector : Student instance
+deactivate Student
+
+CollegeDirector --> StudentClientMain : enggStudent
+deactivate CollegeDirector
+
+== MBA Student Flow ==
+
+StudentClientMain -> MBAStudentBuilder : new()
+activate MBAStudentBuilder
+MBAStudentBuilder --> StudentClientMain : builder instance
+deactivate MBAStudentBuilder
+
+StudentClientMain -> CollegeDirector : new(MBAStudentBuilder)
+activate CollegeDirector
+CollegeDirector --> StudentClientMain : director2 instance
+deactivate CollegeDirector
+
+StudentClientMain -> CollegeDirector : createStudent()
+activate CollegeDirector
+
+CollegeDirector -> MBAStudentBuilder : setId(1)
+MBAStudentBuilder --> CollegeDirector
+
+CollegeDirector -> MBAStudentBuilder : setName("Umashankar")
+MBAStudentBuilder --> CollegeDirector
+
+CollegeDirector -> MBAStudentBuilder : setAge(24)
+MBAStudentBuilder --> CollegeDirector
+
+CollegeDirector -> MBAStudentBuilder : setSubjects()
+activate MBAStudentBuilder
+note right
+sets subjects:
+["Business Studies", "Management", "Finance", "Marketing"]
+end note
+MBAStudentBuilder --> CollegeDirector
+deactivate MBAStudentBuilder
+
+CollegeDirector -> MBAStudentBuilder : build()
+activate Student
+Student --> CollegeDirector : Student instance
+deactivate Student
+
+CollegeDirector --> StudentClientMain : mbaStudent
+deactivate CollegeDirector
+
+deactivate StudentClientMain
+@enduml

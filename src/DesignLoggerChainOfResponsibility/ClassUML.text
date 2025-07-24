@@ -1,0 +1,34 @@
+@startuml
+
+class MainLoggerClient {
+    +main(String[]): void
+}
+
+abstract class LogProcessor {
+    +INFO: int = 1
+    +DEBUG: int = 2
+    +ERROR: int = 3
+    -nextLogProcessor: LogProcessor
+    +LogProcessor(next: LogProcessor)
+    +log(logLevel: int, message: String): void
+}
+
+class InfoLogProcessor extends LogProcessor {
+    +log(logLevel: int, message: String): void
+}
+
+class DebugLogProcessor extends LogProcessor {
+    +log(logLevel: int, message: String): void
+}
+
+class EroorLogProcessor extends LogProcessor {
+    +log(logLevel: int, message: String): void
+}
+
+MainLoggerClient ..> LogProcessor : uses
+LogProcessor <|-- InfoLogProcessor
+LogProcessor <|-- DebugLogProcessor
+LogProcessor <|-- EroorLogProcessor
+LogProcessor --> LogProcessor : nextLogProcessor
+
+@enduml

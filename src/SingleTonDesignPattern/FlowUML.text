@@ -1,0 +1,18 @@
+@startuml
+actor User
+
+User -> SingleTonMain: main()
+
+SingleTonMain -> SingleTon: getSingleTon()
+SingleTon -> SingleTon: create instance (if null)
+SingleTonMain -> SingleTon: test()
+
+SingleTonMain -> SingleTon: get hashCode()
+
+SingleTonMain -> Constructor: getDeclaredConstructor()
+SingleTonMain -> Constructor: newInstance()
+note right of Constructor: Breaks Singleton using Reflection
+
+SingleTonMain -> SingleTon: getSingleTon()
+SingleTonMain -> SingleTon: get hashCode()
+@enduml

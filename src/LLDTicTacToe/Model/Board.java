@@ -66,25 +66,25 @@ public class Board {
 
 
     public class Pair<T, U> {
-        private T first;
-        private U second;
+        private T row;
+        private U col;
 
-        public Pair(T first, U second) {
-            this.first = first;
-            this.second = second;
+        public Pair(T row, U col) {
+            this.row = row;
+            this.col = col;
         }
 
-        public T getFirst() {
-            return first;
+        public T getRow() {
+            return row;
         }
 
-        public U getSecond() {
-            return second;
+        public U getCol() {
+            return col;
         }
 
         @Override
         public String toString() {
-            return "(" + first + ", " + second + ")";
+            return "(" + row + ", " + col + ")";
         }
     }
 

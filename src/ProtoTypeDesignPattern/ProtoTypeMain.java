@@ -20,10 +20,5 @@ public class ProtoTypeMain {
         Employee employeeClone = (Employee) employee.clone();
 
         System.out.println(employeeClone + " ---- " + employeeClone.hashCode());
-
-
-
-
-
     }
 }

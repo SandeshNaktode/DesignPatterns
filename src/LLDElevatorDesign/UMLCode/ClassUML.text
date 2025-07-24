@@ -1,0 +1,107 @@
+@startuml
+title UML Class Diagram - Elevator System
+
+' ===== ENUMS =====
+enum ElevatorState {
+  MOVING
+  IDLE
+}
+
+enum Direction {
+  UP
+  DOWN
+}
+
+' ===== Main Entry Point =====
+class MainElevatorActor {
+  + main(String[]): void
+}
+
+' ====== Building and Floors =====
+class Building {
+  - List<Floor> floorList
+  + addFloors(Floor): void
+  + removeFloors(Floor): void
+  + getAllFloorList(): List<Floor>
+}
+
+class Floor {
+  - int floorNumber
+  - ExternalDispatcher externalDispatcher
+  + pressButton(Direction): void
+}
+
+' ===== Elevator Core =====
+class ElevatorCar {
+  - int id
+  - ElevatorDisplay display
+  - int currentFloor
+  - Direction elevatorDirection
+  - ElevatorState elevatorState
+  - InternalButtons internalButtons
+  - ElevatorDoor elevatorDoor
+  + showDisplay(): void
+  + pressButton(int): void
+  + setDisplay(): void
+  + moveElevator(Direction, int): boolean
+}
+
+class ElevatorController {
+  - PriorityQueue<Integer> upMinPQ
+  - PriorityQueue<Integer> downMaxPQ
+  - ElevatorCar elevatorCar
+  + submitExternalRequest(int, Direction): void
+  + submitInternalRequest(int): void
+  + controlElevator(): void
+}
+
+class ElevatorCreator {
+  static - List<ElevatorController> elevatorControllerList
+}
+
+' ====== Dispatcher and Button ======
+class ExternalDispatcher {
+  - List<ElevatorController> elevatorControllerList
+  + submitExternalRequest(int, Direction): void
+}
+
+class InternalDispatcher {
+  - List<ElevatorController> elevatorControllerList
+  + submitInternalRequest(int, ElevatorCar): void
+}
+
+class InternalButtons {
+  - int[] availableButtons
+  - int buttonSelected
+  - InternalDispatcher internalDispatcher
+  + pressButton(int, ElevatorCar): void
+}
+
+' ====== Display and Door ======
+class ElevatorDisplay {
+  - int floor
+  - Direction direction
+  + setDisplay(int, Direction): void
+  + showDisplay(): void
+}
+
+class ElevatorDoor {
+  + openDoor(): void
+  + closeDoor(): void
+}
+
+' ===== RELATIONSHIPS =====
+MainElevatorActor --> Building
+Building --> Floor
+Floor --> ExternalDispatcher
+ExternalDispatcher --> ElevatorController
+InternalButtons --> InternalDispatcher
+ElevatorCar --> InternalButtons
+ElevatorCar --> ElevatorDisplay
+ElevatorCar --> ElevatorDoor
+ElevatorController --> ElevatorCar
+ElevatorCreator --> ElevatorController
+ElevatorCar --> Direction
+ElevatorCar --> ElevatorState
+
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+title Vending Machine - Sequence Diagram
+
+actor User
+participant VendingMachineMain
+participant VendingMachine
+participant Inventory
+participant IdleState
+participant HasMoneyState
+participant SelectionState
+participant DispenseState
+
+User -> VendingMachineMain: main()
+VendingMachineMain -> VendingMachine: new VendingMachine()
+VendingMachineMain -> Inventory: fillUpInventory()
+VendingMachineMain -> VendingMachine: displayInventory()
+
+User -> VendingMachine: clickOnInsertCoinButton()
+VendingMachine -> IdleState: clickOnInsertCoinButton()
+IdleState -> VendingMachine: setState(HasMoneyState)
+
+User -> VendingMachine: insertCoin(TEN)
+VendingMachine -> HasMoneyState: insertCoin()
+User -> VendingMachine: insertCoin(TWENTY)
+VendingMachine -> HasMoneyState: insertCoin()
+
+User -> VendingMachine: clickOnStartProductSelectionButton()
+VendingMachine -> HasMoneyState: clickOnStartProductSelectionButton()
+HasMoneyState -> VendingMachine: setState(SelectionState)
+
+User -> VendingMachine: chooseProduct(102)
+VendingMachine -> SelectionState: chooseProduct(102)
+SelectionState -> Inventory: getItem(102)
+SelectionState -> VendingMachine: getCoinList()
+SelectionState -> VendingMachine: setState(DispenseState)
+
+VendingMachine -> DispenseState: dispenseProduct(102)
+DispenseState -> Inventory: getItem(102)
+DispenseState -> Inventory: updateSoldOutItem(102)
+DispenseState -> VendingMachine: setState(IdleState)
+
+@enduml

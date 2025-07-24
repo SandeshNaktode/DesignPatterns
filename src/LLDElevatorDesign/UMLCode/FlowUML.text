@@ -1,0 +1,22 @@
+@startuml
+title Sequence Diagram - Elevator External Request Flow
+
+actor User
+participant "Floor" as F
+participant "ExternalDispatcher" as ED
+participant "ElevatorController" as EC
+participant "ElevatorCar" as ECar
+participant "ElevatorDoor" as EDoor
+participant "ElevatorDisplay" as EDisplay
+
+User -> F: pressButton(Direction.UP)
+F -> ED: submitExternalRequest(floorNumber, Direction.UP)
+ED -> EC: submitExternalRequest(floorNumber, Direction.UP)
+EC -> ECar: moveElevator(Direction.UP, floorNumber)
+ECar -> EDoor: closeDoor()
+ECar -> ECar: move to floorNumber
+ECar -> EDoor: openDoor()
+ECar -> EDisplay: setDisplay(floorNumber, Direction.UP)
+ECar -> EDisplay: showDisplay()
+
+@enduml

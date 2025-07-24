@@ -1,0 +1,153 @@
+@startuml
+
+' ==== ENUMS ====
+enum VehicleType {
+  CAR
+  BIKE
+  SUV
+  VAN
+}
+
+enum ReservationStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentMode {
+  CASH
+  UPI
+  CARD
+  NETBANKING
+}
+
+enum PaymentStatus {
+  SUCCESS
+  FAILURE
+  PENDING
+}
+
+' ==== MAIN SYSTEM CLASSES ====
+
+class RentalMain {
+  + main(String[]): void
+}
+
+class VehicleRentalSystem {
+  - List<Store> storeList
+  + getStore(Location): Store
+  + addStore(Store): void
+}
+
+class Store {
+  - int id
+  - Location location
+  - VehicleInventoryManagement inventory
+  - List<Reservation> reservations
+
+  + getVehicles(VehicleType): List<Vehicle>
+  + createReservation(User, Vehicle, ReservationTime): Reservation
+  + completeReservation(int): void
+}
+
+class VehicleInventoryManagement {
+  - Map<VehicleType, List<Vehicle>> vehicles
+
+  + addVehicle(Vehicle): void
+  + getVehiclesByType(VehicleType): List<Vehicle>
+  + getAllVehicles(): List<Vehicle>
+}
+
+class Vehicle {
+  - int id
+  - String licensePlate
+  - String model
+  - String brand
+  - int kmDriven
+  - double dailyCost
+  - boolean isBooked
+  - VehicleType type
+
+  + setBooked(boolean): void
+}
+
+class User {
+  - int id
+  - String name
+  - String email
+  - List<Reservation> reservations
+
+  + addReservation(Reservation): void
+  + getReservations(): List<Reservation>
+}
+
+class Location {
+  - String address
+  - String city
+  - String state
+  - String pincode
+  + toString(): String
+}
+
+class ReservationTime {
+  - Date pickupTime
+  - Date dropOffTime
+
+  + getDurationInDays(): int
+}
+
+class Reservation {
+  - int reservationId
+  - Vehicle vehicle
+  - User user
+  - ReservationTime time
+  - ReservationStatus status
+  - Bill bill
+
+  + getTotalCost(): double
+  + setStatus(ReservationStatus): void
+}
+
+class Bill {
+  - int billId
+  - Reservation reservation
+  - double amount
+  - Date generatedOn
+
+  + computeBillAmount(): double
+  + getAmount(): double
+}
+
+class Payment {
+  - int paymentId
+  - PaymentMode mode
+  - PaymentStatus status
+  - double amount
+
+  + pay(Bill): PaymentStatus
+  + getPaymentStatus(): PaymentStatus
+}
+
+' ==== RELATIONSHIPS ====
+
+RentalMain --> VehicleRentalSystem
+VehicleRentalSystem --> Store : manages >
+Store --> Location
+Store --> VehicleInventoryManagement : uses >
+VehicleInventoryManagement --> Vehicle : manages >
+Store --> Reservation : creates >
+Reservation --> Vehicle
+Reservation --> ReservationTime
+Reservation --> User
+Reservation --> Bill
+Bill --> Reservation
+Payment --> Bill
+Payment --> PaymentStatus
+Payment --> PaymentMode
+User --> Reservation : has >
+
+Vehicle --> VehicleType
+Reservation --> ReservationStatus
+
+@enduml

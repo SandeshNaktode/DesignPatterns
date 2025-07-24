@@ -1,0 +1,37 @@
+@startuml
+actor Client
+
+Client -> AbstractFactoryMain: main()
+
+Client -> FactoryProducer: getVehicleFactory("Luxury")
+FactoryProducer -> LuxuryVehicleFactory: create instance
+Client <-- FactoryProducer: return LuxuryVehicleFactory
+
+Client -> LuxuryVehicleFactory: createVehicle("BMW")
+LuxuryVehicleFactory -> BMW: create instance
+Client <-- LuxuryVehicleFactory: BMW
+
+Client -> BMW: getVehicleDetails()
+
+Client -> LuxuryVehicleFactory: createVehicle("mercedes")
+LuxuryVehicleFactory -> Mercedes: create instance
+Client <-- LuxuryVehicleFactory: Mercedes
+
+Client -> Mercedes: getVehicleDetails()
+
+Client -> FactoryProducer: getVehicleFactory("Ordinary")
+FactoryProducer -> OrdinaryVehicleFactory: create instance
+Client <-- FactoryProducer: return OrdinaryVehicleFactory
+
+Client -> OrdinaryVehicleFactory: createVehicle("Hyundai")
+OrdinaryVehicleFactory -> Hyundai: create instance
+Client <-- OrdinaryVehicleFactory: Hyundai
+
+Client -> Hyundai: getVehicleDetails()
+
+Client -> OrdinaryVehicleFactory: createVehicle("Suzuki")
+OrdinaryVehicleFactory -> Suzuki: create instance
+Client <-- OrdinaryVehicleFactory: Suzuki
+
+Client -> Suzuki: getVehicleDetails()
+@enduml

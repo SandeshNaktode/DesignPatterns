@@ -1,0 +1,37 @@
+@startuml
+title Sequence Diagram - Snake and Ladder Game Turn
+
+actor User
+participant MainGame
+participant Game
+participant Player
+participant Dice
+participant Board
+participant Cell
+participant Jump
+
+User -> MainGame: main()
+MainGame -> Game: new Game()
+Game -> Game: initializeGame()
+Game -> Board: new Board()
+Game -> Dice: new Dice()
+Game -> Game: constructPlayers()
+
+loop While no winner
+    Game -> Game: findPlayerTurn()
+    Game -> Dice: rollDice()
+    Dice --> Game: diceNumber
+
+    Game -> Board: getCell(newPosition)
+    Board -> Cell: return Cell
+    Game -> Cell: check for jump
+    alt if Jump exists
+        Cell -> Jump: getStart(), getEnd()
+    end
+
+    Game -> Player: updatePosition()
+end
+
+Game -> User: print Winner
+
+@enduml

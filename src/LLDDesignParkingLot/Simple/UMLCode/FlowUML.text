@@ -1,0 +1,28 @@
+@startuml
+actor User
+participant ParkingLotMain
+participant ParkingLotManager
+participant ParkingFloor
+participant ParkingSpot
+participant Ticket
+participant FeeCalculator
+
+User -> ParkingLotMain: main()
+ParkingLotMain -> ParkingLotManager: parkVehicle(vehicle)
+ParkingLotManager -> ParkingFloor: findAvailableSpot(vehicle)
+ParkingFloor -> ParkingSpot: canFit(vehicle) + isAvailable()
+ParkingFloor --> ParkingLotManager: Optional<ParkingSpot>
+ParkingLotManager -> ParkingSpot: assignVehicle(vehicle)
+ParkingLotManager -> Ticket: new Ticket(id, vehicle, spot)
+ParkingLotManager -> ParkingLotManager: activeTickets.put(ticketId, ticket)
+ParkingLotManager --> ParkingLotMain: Ticket
+
+... Time passes ...
+
+ParkingLotMain -> ParkingLotManager: unparkVehicle(ticketId)
+ParkingLotManager -> Ticket: getEntryTime()
+ParkingLotManager -> FeeCalculator: calculate(entryTime, now, vehicleType)
+ParkingLotManager -> ParkingSpot: removeVehicle()
+ParkingLotManager -> ParkingLotManager: activeTickets.remove(ticketId)
+ParkingLotManager --> ParkingLotMain: fee
+@enduml

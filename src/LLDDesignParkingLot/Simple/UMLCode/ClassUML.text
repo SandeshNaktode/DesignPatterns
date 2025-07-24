@@ -1,0 +1,89 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+
+' ==== VEHICLE PACKAGE ====
+package Vehicle {
+  abstract class Vehicle {
+    - licensePlate: String
+    - type: VehicleType
+    + getLicensePlate(): String
+    + getType(): VehicleType
+  }
+
+  class Car
+  class Bike
+  enum VehicleType {
+    BIKE
+    CAR
+    TRUCK
+  }
+
+  Vehicle <|-- Car
+  Vehicle <|-- Bike
+}
+
+' ==== PARKING PACKAGE ====
+package Parking {
+  class ParkingSpot {
+    - id: String
+    - type: VehicleType
+    - isOccupied: boolean
+    - vehicle: Vehicle
+    + isAvailable(): boolean
+    + canFit(Vehicle): boolean
+    + assignVehicle(Vehicle)
+    + removeVehicle()
+  }
+
+  class ParkingFloor {
+    - name: String
+    - spots: List<ParkingSpot>
+    + findAvailableSpot(Vehicle): Optional<ParkingSpot>
+  }
+
+  class Ticket {
+    - id: String
+    - entryTime: LocalDateTime
+    - spot: ParkingSpot
+    - vehicle: Vehicle
+    + getId()
+    + getEntryTime()
+    + getSpot()
+    + getVehicle()
+  }
+
+  ParkingSpot --> Vehicle
+  Ticket --> Vehicle
+  Ticket --> ParkingSpot
+  ParkingFloor --> ParkingSpot
+}
+
+' ==== FEES PACKAGE ====
+package Fees {
+  interface FeeCalculator {
+    + calculate(entryTime: LocalDateTime, exitTime: LocalDateTime, type: VehicleType): double
+  }
+
+  class HourlyFeeCalculator
+
+  FeeCalculator <|.. HourlyFeeCalculator
+}
+
+' ==== MAIN / MANAGER ====
+class ParkingLotManager {
+  - floors: List<ParkingFloor>
+  - activeTickets: Map<String, Ticket>
+  - feeCalculator: FeeCalculator
+  + parkVehicle(Vehicle): Ticket
+  + unparkVehicle(String): double
+}
+
+class ParkingLotMain
+
+ParkingLotManager --> ParkingFloor
+ParkingLotManager --> Ticket
+ParkingLotManager --> FeeCalculator
+ParkingLotMain --> ParkingLotManager
+ParkingLotMain --> Vehicle
+@enduml

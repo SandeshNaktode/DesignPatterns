@@ -1,0 +1,26 @@
+@startuml
+actor User
+
+User -> MainNullable : main()
+
+== Bike Flow ==
+MainNullable -> VehicelFactory : getVehicleObject("Bike")
+VehicelFactory -> NullVehicle : new()
+VehicelFactory --> MainNullable : NullVehicle
+
+MainNullable -> NullVehicle : getSeatingCapacity()
+MainNullable <- NullVehicle : 0
+MainNullable -> NullVehicle : getTankCapacity()
+MainNullable <- NullVehicle : 0
+
+== Car Flow ==
+MainNullable -> VehicelFactory : getVehicleObject("Car")
+VehicelFactory -> Car : new()
+VehicelFactory --> MainNullable : Car
+
+MainNullable -> Car : getSeatingCapacity()
+MainNullable <- Car : 6
+MainNullable -> Car : getTankCapacity()
+MainNullable <- Car : 40
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+interface EmployeeService {
+    +createEmployee(name)
+    +readEmployee(id)
+    +updateEmployee(id, newName)
+    +deleteEmployee(id)
+}
+
+class EmployeeServiceImpl {
+    -employeeDB : Map
+    -counter : int
+    +createEmployee(name)
+    +readEmployee(id)
+    +updateEmployee(id, newName)
+    +deleteEmployee(id)
+}
+
+class EmployeeServiceProxy {
+    -realService : EmployeeServiceImpl
+    -currentUserRole : String
+    +createEmployee(name)
+    +readEmployee(id)
+    +updateEmployee(id, newName)
+    +deleteEmployee(id)
+}
+
+EmployeeService <|.. EmployeeServiceImpl
+EmployeeService <|.. EmployeeServiceProxy
+@enduml

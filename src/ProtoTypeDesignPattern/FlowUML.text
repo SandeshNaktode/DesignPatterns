@@ -1,0 +1,19 @@
+@startuml
+actor Client
+
+Client -> ProtoTypeMain : main()
+
+activate ProtoTypeMain
+
+'--- Student creation & cloning ---
+ProtoTypeMain -> Student : new(name="Sandesh", age=25, rollNo=45)
+ProtoTypeMain -> Student : clone()
+Student --> ProtoTypeMain : StudentClone
+
+'--- Employee creation & cloning ---
+ProtoTypeMain -> Employee : new(empID=45, empName="Pranjal", empAge=23, ...)
+ProtoTypeMain -> Employee : clone()
+Employee --> ProtoTypeMain : EmployeeClone
+
+deactivate ProtoTypeMain
+@enduml

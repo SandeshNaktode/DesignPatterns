@@ -1,0 +1,41 @@
+@startuml
+
+' Strategy Interface
+interface PaymentStrategy {
+    +pay(amount: int): void
+}
+
+' Concrete Strategies
+class CreditCardPayment {
+    +pay(amount: int): void
+}
+
+class PayPalPayment {
+    +pay(amount: int): void
+}
+
+class BankTransferPayment {
+    +pay(amount: int): void
+}
+
+' Context Class
+class PaymentContextStrategy {
+    -strategy: PaymentStrategy
+    +PaymentContextStrategy(strategy: PaymentStrategy)
+    +pay(amount: int): void
+}
+
+' Main
+class MainPaymentStrategy {
+    +main(args: String[]): void
+}
+
+' Relationships
+CreditCardPayment ..|> PaymentStrategy
+PayPalPayment ..|> PaymentStrategy
+BankTransferPayment ..|> PaymentStrategy
+
+PaymentContextStrategy --> PaymentStrategy
+MainPaymentStrategy --> PaymentContextStrategy
+
+@enduml

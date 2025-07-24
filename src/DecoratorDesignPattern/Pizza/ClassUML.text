@@ -1,0 +1,66 @@
+@startuml
+
+' Interface
+interface Pizza {
+    + getDescription(): String
+    + getCost(): double
+}
+
+' Concrete Pizzas
+class MargheritiaPizza implements Pizza {
+    + getDescription(): String
+    + getCost(): double
+}
+
+class FarmHouse implements Pizza {
+    + getDescription(): String
+    + getCost(): double
+}
+
+class VegDelight implements Pizza {
+    + getDescription(): String
+    + getCost(): double
+}
+
+' Abstract Decorator
+abstract class AbstractPizzaDecorator implements Pizza {
+    - pizza: Pizza
+    + AbstractPizzaDecorator(pizza: Pizza)
+    + getDescription(): String
+    + getCost(): double
+}
+
+' Concrete Decorators
+class CheeseDecorator extends AbstractPizzaDecorator {
+    + getDescription(): String
+    + getCost(): double
+}
+
+class MushroomDecorator extends AbstractPizzaDecorator {
+    + getDescription(): String
+    + getCost(): double
+}
+
+class OliveDecorator extends AbstractPizzaDecorator {
+    + getDescription(): String
+    + getCost(): double
+}
+
+' Main
+class MainPizzaStore {
+    + main(String[]): void
+}
+
+' Relationships
+Pizza <|.. MargheritiaPizza
+Pizza <|.. FarmHouse
+Pizza <|.. VegDelight
+
+Pizza <|.. AbstractPizzaDecorator
+AbstractPizzaDecorator <|-- CheeseDecorator
+AbstractPizzaDecorator <|-- MushroomDecorator
+AbstractPizzaDecorator <|-- OliveDecorator
+
+MainPizzaStore ..> Pizza : uses
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+actor Client
+
+Client -> EmployeeServiceProxy : create("ADMIN")
+Client -> EmployeeServiceProxy : createEmployee("Sandesh")
+EmployeeServiceProxy -> EmployeeServiceImpl : createEmployee("Sandesh")
+
+Client -> EmployeeServiceProxy : readEmployee(1)
+EmployeeServiceProxy -> EmployeeServiceImpl : readEmployee(1)
+
+Client -> EmployeeServiceProxy : updateEmployee(1, "Sandesh Naktode")
+EmployeeServiceProxy -> EmployeeServiceImpl : updateEmployee(...)
+
+Client -> EmployeeServiceProxy : deleteEmployee(1)
+EmployeeServiceProxy -> EmployeeServiceImpl : deleteEmployee(...)
+
+Client -> EmployeeServiceProxy : create("USER")
+Client -> EmployeeServiceProxy : createEmployee("Param") [Denied]
+@enduml

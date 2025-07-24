@@ -1,0 +1,85 @@
+@startuml
+title UML Class Diagram - Vending Machine (State Pattern)
+
+class VendingMachineMain
+
+class VendingMachine {
+  - IVendingMachineStates vendingMachineState
+  - Inventory inventory
+  - List<Coin> coinList
+  + getVendingMachineState(): IVendingMachineStates
+  + setVendingMachineState(state: IVendingMachineStates): void
+  + getInventory(): Inventory
+  + getCoinList(): List<Coin>
+}
+
+class Inventory {
+  - ItemShelf[] inventory
+  + getInventory(): ItemShelf[]
+  + addItem(item: Item, position: int): void
+  + getItem(code: int): Item
+  + updateSoldOutItem(code: int): void
+}
+
+class ItemShelf {
+  - int positionNumber
+  - Item item
+  - boolean soldOut
+  + getPositionNumber(): int
+  + isSoldOut(): boolean
+}
+
+class Item {
+  - ItemType type
+  - String name
+  - int price
+  - int quantity
+  + getType(): ItemType
+}
+
+enum ItemType {
+  COKE
+  PEPSI
+  JUICE
+  SODA
+  SNACKS
+}
+
+enum Coin {
+  ONE
+  FIVE
+  TEN
+  TWENTY
+  FIFTY
+}
+
+interface IVendingMachineStates {
+  + clickOnInsertCoinButton(VendingMachine)
+  + clickOnStartProductSelectionButton(VendingMachine)
+  + insertCoin(VendingMachine, Coin)
+  + chooseProduct(VendingMachine, int)
+  + getChange(VendingMachine, int): int
+  + dispenseProduct(VendingMachine, int): Item
+  + refundFullMoney(VendingMachine): List<Coin>
+  + updateInventory(VendingMachine, Item, int)
+}
+
+class IdleState implements IVendingMachineStates
+class HasMoneyState implements IVendingMachineStates
+class SelectionState implements IVendingMachineStates
+class DispenseState implements IVendingMachineStates
+
+VendingMachineMain --> VendingMachine
+VendingMachine --> Inventory
+Inventory --> ItemShelf
+ItemShelf --> Item
+Item --> ItemType
+VendingMachine --> IVendingMachineStates
+VendingMachine --> Coin
+IVendingMachineStates <|.. IdleState
+IVendingMachineStates <|.. HasMoneyState
+IVendingMachineStates <|.. SelectionState
+IVendingMachineStates <|.. DispenseState
+Coin -down-> VendingMachine
+
+@enduml

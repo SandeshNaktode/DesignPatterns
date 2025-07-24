@@ -1,0 +1,68 @@
+@startuml
+title Tic Tac Toe - UML Class Diagram
+
+class MainGameClass {
+    +main(args: String[]): void
+}
+
+class TicTacToeGame {
+    -Deque<Player> players
+    -Board gameBoard
+    +startGame(): String
+    -initializeGame(): void
+    -isThereWinner(row: int, col: int, piece: PlayingPiece): boolean
+}
+
+class Board {
+    -int size
+    -PlayingPiece[][] board
+    +Board(size: int)
+    +addPiece(row: int, col: int, piece: PlayingPiece): boolean
+    +getFreeCells(): List<Pair<Integer, Integer>>
+    +printBoard(): void
+    +getSize(): int
+    +getBoard(): PlayingPiece[][]
+}
+
+class Player {
+    -String name
+    -PlayingPiece playingPiece
+    +getName(): String
+    +getPlayingPiece(): PlayingPiece
+}
+
+abstract class PlayingPiece {
+    -PieceType pieceType
+    +getPieceType(): PieceType
+}
+
+class PlayingPieceX {
+    +PlayingPieceX()
+}
+
+class PlayingPieceO {
+    +PlayingPieceO()
+}
+
+enum PieceType {
+    X
+    O
+}
+
+class Pair {
+    -T first
+    -U second
+    +getFirst(): T
+    +getSecond(): U
+}
+
+MainGameClass --> TicTacToeGame
+TicTacToeGame --> Player
+TicTacToeGame --> Board
+Board --> Pair
+Player --> PlayingPiece
+PlayingPieceX -|> PlayingPiece
+PlayingPieceO -|> PlayingPiece
+PlayingPiece --> PieceType
+
+@enduml

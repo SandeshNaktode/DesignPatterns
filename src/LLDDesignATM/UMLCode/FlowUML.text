@@ -1,0 +1,44 @@
+@startuml
+actor User
+participant "ATMRoom" as Room
+participant "ATM" as Atm
+participant "ATMState" as State
+participant "Card"
+participant "UserBankAccount" as Account
+participant "CashWithdrawProcessor" as Processor
+
+User -> Room : main()
+Room -> Room : initialize()
+Room -> Atm : setAtmBalance()
+
+User -> Room : insert card
+Room -> Atm : getCurrentATMState()
+Atm -> State : insertCard(atm, card)
+State -> Atm : setCurrentATMState(HasCardState)
+
+User -> Room : enter PIN
+Room -> Atm : getCurrentATMState()
+Atm -> State : authenticatePin(atm, card, pin)
+State -> Atm : setCurrentATMState(SelectOperationState)
+
+User -> Room : select CASH_WITHDRAWAL
+Room -> Atm : getCurrentATMState()
+Atm -> State : selectOperation(atm, card, CASH_WITHDRAWAL)
+State -> Atm : setCurrentATMState(CashWithdrawalState)
+
+User -> Room : enter amount = 2700
+Room -> Atm : getCurrentATMState()
+Atm -> State : cashWithdrawal(atm, card, 2700)
+
+State -> Card : getBankBalance()
+Card -> Account : balance
+
+State -> Card : deductBankBalance(2700)
+Card -> Account : withdrawalBalance(2700)
+
+State -> Atm : deductATMBalance(2700)
+State -> Processor : withdraw(atm, 2700)
+Processor -> Processor : withdraw via 2K, 500, 100 notes
+
+State -> Atm : setCurrentATMState(IdleState)
+@enduml

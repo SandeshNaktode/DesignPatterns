@@ -1,0 +1,46 @@
+@startuml
+actor User
+
+User -> MainLoggerClient : main()
+
+== Setup Chain ==
+MainLoggerClient -> EroorLogProcessor : new(null)
+activate EroorLogProcessor
+deactivate EroorLogProcessor
+
+MainLoggerClient -> DebugLogProcessor : new(EroorLogProcessor)
+activate DebugLogProcessor
+deactivate DebugLogProcessor
+
+MainLoggerClient -> InfoLogProcessor : new(DebugLogProcessor)
+activate InfoLogProcessor
+deactivate InfoLogProcessor
+
+== ERROR Log ==
+MainLoggerClient -> InfoLogProcessor : log(ERROR, "Exception ocuured")
+activate InfoLogProcessor
+InfoLogProcessor -> DebugLogProcessor : log(ERROR, "Exception ocuured")
+activate DebugLogProcessor
+DebugLogProcessor -> EroorLogProcessor : log(ERROR, "Exception ocuured")
+activate EroorLogProcessor
+EroorLogProcessor --> DebugLogProcessor : prints "ERROR: Exception ocuured"
+deactivate EroorLogProcessor
+deactivate DebugLogProcessor
+deactivate InfoLogProcessor
+
+== DEBUG Log ==
+MainLoggerClient -> InfoLogProcessor : log(DEBUG, "Please Debug This")
+activate InfoLogProcessor
+InfoLogProcessor -> DebugLogProcessor : log(DEBUG, "Please Debug This")
+activate DebugLogProcessor
+DebugLogProcessor --> InfoLogProcessor : prints "DEBUG: Please Debug This"
+deactivate DebugLogProcessor
+deactivate InfoLogProcessor
+
+== INFO Log ==
+MainLoggerClient -> InfoLogProcessor : log(INFO, "For Your Information")
+activate InfoLogProcessor
+InfoLogProcessor --> MainLoggerClient : prints "INFO: For Your Information"
+deactivate InfoLogProcessor
+
+@enduml

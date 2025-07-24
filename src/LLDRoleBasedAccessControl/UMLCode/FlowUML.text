@@ -1,0 +1,32 @@
+@startuml
+actor Admin
+
+participant "UserService" as US
+participant "RoleService" as RS
+participant "PermissionService" as PS
+participant "AccessControlService" as ACS
+
+Admin -> US : createUser(userId, name, type)
+US -> US : create User object
+
+Admin -> RS : createRole(roleId, name)
+RS -> RS : create Role object
+
+Admin -> PS : createPermission(resource, permissionType)
+PS -> PS : create Permission object
+
+Admin -> RS : addPermissionToRole(roleId, permission)
+RS -> RS : role.addPermission(permission)
+
+Admin -> US : assignRoleToUser(userId, role)
+US -> US : user.assignRole(role)
+
+Admin -> ACS : checkAccess(user, resource, permissionType)
+ACS -> US : getRoles()
+US --> ACS : Set<Role>
+ACS -> RS : getPermissions() for each Role
+RS --> ACS : Set<Permission>
+ACS -> ACS : match resource & permissionType?
+ACS --> Admin : Access granted / denied
+
+@enduml

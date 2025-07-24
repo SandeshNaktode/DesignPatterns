@@ -1,0 +1,54 @@
+@startuml
+abstract class StudentBuilder {
+    - id: int
+    - name: String
+    - age: int
+    - email: String
+    - address: String
+    - phoneNumber: String
+    # subjects: List<String>
+    + setId(int): StudentBuilder
+    + setName(String): StudentBuilder
+    + setAge(int): StudentBuilder
+    + setEmail(String): StudentBuilder
+    + setAddress(String): StudentBuilder
+    + setPhoneNumber(String): StudentBuilder
+    + setSubjects(): StudentBuilder
+    + build(): Student
+}
+
+class EngineeringStudentBuilder {
+    + setSubjects(): StudentBuilder
+}
+
+class MBAStudentBuilder {
+    + setSubjects(): StudentBuilder
+}
+
+class Student {
+    - id: int
+    - name: String
+    - age: int
+    - email: String
+    - address: String
+    - phoneNumber: String
+    - subjects: List<String>
+    + toString(): String
+}
+
+class CollegeDirector {
+    - studentBuilder: StudentBuilder
+    + createStudent(): Student
+}
+
+class StudentClientMain {
+    + main(args: String[]): void
+}
+
+StudentBuilder <|-- EngineeringStudentBuilder
+StudentBuilder <|-- MBAStudentBuilder
+StudentBuilder --> Student
+CollegeDirector --> StudentBuilder
+CollegeDirector --> Student
+StudentClientMain --> CollegeDirector
+@enduml

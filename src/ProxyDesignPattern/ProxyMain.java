@@ -10,7 +10,7 @@ public class ProxyMain {
         //System.out.println(adminProxy.readEmployee(1));
 
         EmployeeService userProxy = new EmployeeServiceProxy("USER");
-        userProxy.createEmployee("Param");
+        userProxy.createEmployee("Param"); //Access Denied
         System.out.println(userProxy.readEmployee(1)); // Still allowed
     }
 }

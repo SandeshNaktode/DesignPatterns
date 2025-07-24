@@ -1,0 +1,27 @@
+@startuml
+title Sequence Diagram - Command Design Pattern (AC Controller)
+
+actor Client
+
+participant Main
+participant MyRemoteController
+participant TurnACOnCommand
+participant TurnACOffCommand
+participant AirConditioner
+
+== Turn ON AC ==
+Client -> Main : main()
+Main -> AirConditioner : new AirConditioner()
+Main -> TurnACOnCommand : new TurnACOnCommand(ac)
+Main -> MyRemoteController : new MyRemoteController()
+Main -> MyRemoteController : setCommand(TurnACOnCommand)
+MyRemoteController -> TurnACOnCommand : execute()
+TurnACOnCommand -> AirConditioner : turnOnAC()
+
+== Turn OFF AC ==
+Main -> TurnACOffCommand : new TurnACOffCommand(ac)
+Main -> MyRemoteController : setCommand(TurnACOffCommand)
+MyRemoteController -> TurnACOffCommand : execute()
+TurnACOffCommand -> AirConditioner : turnOffAC()
+
+@enduml

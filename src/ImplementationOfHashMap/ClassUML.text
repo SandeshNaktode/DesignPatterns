@@ -1,0 +1,25 @@
+@startuml
+' Set the layout to horizontal
+left to right direction
+
+class Main
+
+class MyHashMap<K, V> {
+  - Entry[] hashTable
+  + put(K, V)
+  + get(K): V
+}
+
+class Entry<K, V> {
+  K key
+  V value
+  Entry next
+  + getKey(): K
+  + getValue(): V
+  + setKey(K): void
+  + setValue(V): void
+}
+
+Main --> MyHashMap
+MyHashMap --> Entry
+@enduml

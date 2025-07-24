@@ -1,0 +1,48 @@
+@startuml
+title Command Design Pattern - AC Controller
+
+interface ICommand {
+    +execute(): void
+}
+
+class TurnACOnCommand {
+    -ac: AirConditioner
+    +TurnACOnCommand(ac: AirConditioner)
+    +execute(): void
+}
+
+class TurnACOffCommand {
+    -ac: AirConditioner
+    +TurnACOffCommand(ac: AirConditioner)
+    +execute(): void
+}
+
+class MyRemoteController {
+    -command: ICommand
+    +setCommand(cmd: ICommand): void
+    +pressButton(): void
+}
+
+class AirConditioner {
+    -isOn: boolean
+    -temprature: int
+    +turnOnAC(): void
+    +turnOffAC(): void
+    +setTemprature(temp: int): void
+    +isACOn(): boolean
+    +getTemprature(): int
+}
+
+class Main {
+    +main(args: String[]): void
+}
+
+ICommand <|.. TurnACOnCommand
+ICommand <|.. TurnACOffCommand
+TurnACOnCommand --> AirConditioner
+TurnACOffCommand --> AirConditioner
+MyRemoteController --> ICommand
+Main --> MyRemoteController
+Main --> AirConditioner
+
+@enduml
